@@ -1,3 +1,4 @@
+//identifies all relevant html
 var timeElement = document.querySelector(".time");
 var score = document.querySelector(".score");
 var container = document.querySelector(".container");
@@ -15,11 +16,11 @@ score.setAttribute("style", "cursor: pointer; text-decoration: none; color: purp
 
 var listElement = document.createElement("ul");
 
+//how to set button to hover?
 button.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 10%; color: white; margin: 15px auto; border-radius: 5px; cursor: pointer; hover: background-color: white; font-family; Arial; font-size: 16px");
 
 // Selecting title element
 var titleElement = document.querySelector(".welcome");
-
 
 //setting how many seconds to run
 var secondsLeft = 3;
@@ -72,7 +73,7 @@ function question() {
 
     li1.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; cursor: pointer");
     li2.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; cursor: pointer");
-    li3.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial");
+    li3.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; cursor: pointer");
 
     li2.addEventListener("click", console.log("list item clicked!"));
     //why is my element not registering correclty? 
@@ -86,14 +87,28 @@ function sendMessage() {
     finalText.textContent = "Your final score is: ";
     innerSection.appendChild(finalText);
 
-    var initialText = document.createElement("p");
-    intialText.textContent = "Enter intials: ";
-    innerSection.appendChild(initialText);
+    // var initialText = document.createElement("p");
+    // initialText.textContent = "Enter intials: ";
+    // innerSection.appendChild(initialText);
 
-    var submitButton = document.createElement("button");
-    submitButton.textContent = "Submit";
-    submitButton.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
-    innerSection.appendChild(submitButton);
+    var aForm = document.createElement("form");
+    innerSection.appendChild(aForm);
+
+    var aLabel = document.createElement("label");
+    aLabel.textContent = "Enter intials: ";
+    aForm.appendChild(aLabel);
+
+    var aInput = document.createElement("input");
+    aForm.appendChild(aInput);
+
+    var aSubmit = document.createElement("la");
+    aLabel.textContent = "Enter intials: ";
+    aForm.appendChild(aLabel);
+
+    // var submitButton = document.createElement("button");
+    // submitButton.textContent = "Submit";
+    // submitButton.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
+    // innerSection.appendChild(submitButton);
 
     //why are my buttons not appearing?
 }
@@ -108,17 +123,20 @@ function viewScore () {
     timeElement.setAttribute("style", "display:none;");
     score.setAttribute("style", "display:none;");
 
+    //creates go back button
     var backButton = document.createElement("button");
     backButton.textContent = "Go Back";
     backButton.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
 
+    //creates clear score button
     var clearScore = document.createElement("button");
     clearScore.textContent = "Clear Score";
     clearScore.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
 
+    //appends and styles both buttons
     innerSection.appendChild(backButton);
     innerSection.appendChild(clearScore);
-    innerSection.setAttribute("style", "border: solid 1px black; display: flex; flex-direction: row; width: 50")
+    innerSection.setAttribute("style", "border: solid 1px black; display: flex; flex-direction: row")
 
     //how do you reset back to original state??
     
