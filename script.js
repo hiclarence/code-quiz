@@ -39,7 +39,6 @@ function setTime() {
         // Calls function to create and append image
             sendMessage();
         }
-  
     }, 1000);
 }
 
