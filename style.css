@@ -53,4 +53,9 @@ button {
     width: 10%;
     padding: 20px;
     margin: 20px auto; 
+    background-color: #9F2B68; 
+}
+
+.inner .btn:hover {
+    background-color: #651a42;
 }

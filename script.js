@@ -9,10 +9,9 @@ var pTag = document.querySelector("p");
 var titleElement = document.querySelector(".welcome");
 
 //targeting start quiz button. 
-//** How do I change color when it hovers? 
 var start = document.querySelector("#start");
 start.addEventListener("click", setTime);
-start.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 10%; color: white; margin: 15px auto; border-radius: 5px; border: none; cursor: pointer; hover: font-family; Arial; font-size: 16px");
+start.setAttribute("style", "padding: 20px; width: 10%; color: white; margin: 15px auto; border-radius: 5px; border: none; cursor: pointer; font-family; Arial; font-size: 16px;");
 
 //targeting score link
 score.addEventListener("click", viewScore);
@@ -20,11 +19,12 @@ score.setAttribute("style", "cursor: pointer; text-decoration: none; color: purp
 
 var listElement = document.createElement("ul");
 
+var points = 0;
+
 //setting how many seconds to run
-var secondsLeft = 3;
+var secondsLeft = 5;
 
 function setTime() {
-    var points = 0;
     question();
     // Sets interval in variable
 
@@ -41,6 +41,12 @@ function setTime() {
     }, 1000);
 }
 
+// {
+//     title: 'Commonly used data types DO NOT include:',
+//     choices: ['strings', 'booleans', 'alerts', 'numbers'],
+//     answer: 'alerts',
+//   }
+
 function question() {
     pTag.textContent = " ";
     start.setAttribute("style", "display:none;");
@@ -54,7 +60,7 @@ function question() {
         "print('Hello World')",
         'hello world!'
     ]
-    
+
     var li1 = document.createElement("li");
     var li2 = document.createElement("li");
     var li3 = document.createElement("li");
@@ -74,8 +80,20 @@ function question() {
     li2.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; cursor: pointer");
     li3.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; cursor: pointer");
 
-    li2.addEventListener("click", console.log("list item clicked!"));
-    //**why is my element not responding correclty when clicked? 
+    li2.addEventListener("click", correct);
+    //use for loop to create li options and add event listener
+
+    // for loop here
+    //  - insert text
+    //  - append container
+    //  - stylize
+    //  - event listener - if statement within the event listener
+}
+
+function correct(event) {
+    points += 10;
+    console.log(event.target);
+    console.log(points);
 }
 
 function sendMessage() {
@@ -115,14 +133,16 @@ function sendMessage() {
     aSubmit.setAttribute("style", "padding: 10px; margin: 20px; background-color: #9F2B68; width: 80%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
 
     //clicking the submit button redirects to the view score
-    var name = document.getElementById("name").value;
+    // var name = document.getElementById("name").value;
     aSubmit.addEventListener("click", viewScore);
-    console.log(name);
-
-
+    
 }
 
 function viewScore () {
+    // find element by id with document query
+    // console.log(aInput.value);
+    // use local storage
+    
     // clears the screen
     pTag.textContent = " ";
     innerSection.textContent = " ";
@@ -155,7 +175,6 @@ function viewScore () {
     innerSection.appendChild(backButton);
     innerSection.appendChild(clearScore);
     innerSection.setAttribute("style", "border: solid 1px black; display: flex; flex-direction: row; width: 50%; margin: 0px auto")
-
-    //**how do you reset back to original state
+    //**how do you reset back to original state when go back or clear is clicked?
     
 }
