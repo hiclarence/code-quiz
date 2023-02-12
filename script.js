@@ -4,6 +4,7 @@ var score = document.querySelector(".score");
 
 //identifies html structure including title
 var container = document.querySelector(".container");
+var questions = document.querySelector(".questions");
 var innerSection = document.querySelector(".inner");
 var pTag = document.querySelector("p");
 var titleElement = document.querySelector(".welcome");
@@ -20,6 +21,8 @@ score.setAttribute("style", "cursor: pointer; text-decoration: none; color: purp
 var listElement = document.createElement("ul");
 
 var points = 0;
+
+questions.setAttribute("style", "display:none;");
 
 //setting how many seconds to run
 var secondsLeft = 5;
@@ -40,12 +43,6 @@ function setTime() {
         }
     }, 1000);
 }
-
-// {
-//     title: 'Commonly used data types DO NOT include:',
-//     choices: ['strings', 'booleans', 'alerts', 'numbers'],
-//     answer: 'alerts',
-//   }
 
 function question() {
     pTag.textContent = " ";
@@ -76,11 +73,14 @@ function question() {
 
     innerSection.appendChild(listElement);
 
-    li1.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; cursor: pointer");
-    li2.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; cursor: pointer");
-    li3.setAttribute("style", "padding: 20px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; cursor: pointer");
+    li1.addEventListener("click", correct);
 
-    li2.addEventListener("click", correct);
+    // {
+//     title: 'Commonly used data types DO NOT include:',
+//     choices: ['strings', 'booleans', 'alerts', 'numbers'],
+//     answer: 'alerts',
+//   }
+
     //use for loop to create li options and add event listener
 
     // for loop here
@@ -93,7 +93,9 @@ function question() {
 function correct(event) {
     points += 10;
     console.log(event.target);
-    console.log(points);
+    var correctText = document.createElement("h2");
+    correctText.textContent = "Correct!";
+    innerSection.appendChild(correctText);
 }
 
 function sendMessage() {
@@ -102,14 +104,12 @@ function sendMessage() {
 
     //creates "final score is" text
     var finalText = document.createElement("p");
-    finalText.textContent = "Your final score is: ";
+    finalText.textContent = "Your final score is: ".concat(points, " points.");
     innerSection.appendChild(finalText);
 
     //creates the form
     var aForm = document.createElement("form");
     innerSection.appendChild(aForm);
-    // innerSection.setAttribute("style", "border: 1px solid black")
-    // aForm.setAttribute("style", "border: 1px solid black")
     aForm.setAttribute("style", "margin: auto; padding: 20px 20px; background-color: white; display: flex; flex-direction: column; gap: 10px")
     // event.preventDefault();
 
@@ -120,7 +120,6 @@ function sendMessage() {
     aForm.appendChild(aLabel);
 
     //creating the input
-    //**why is my inpput not being registered? */
     var aInput = document.createElement("input");
     aInput.setAttribute("style", "height: 30px")
     aInput.id = "name";
@@ -133,15 +132,12 @@ function sendMessage() {
     aSubmit.setAttribute("style", "padding: 10px; margin: 20px; background-color: #9F2B68; width: 80%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
 
     //clicking the submit button redirects to the view score
-    // var name = document.getElementById("name").value;
     aSubmit.addEventListener("click", viewScore);
     
 }
 
 function viewScore () {
-    // find element by id with document query
-    // console.log(aInput.value);
-    // use local storage
+    var userName = document.getElementById("name").value;
     
     // clears the screen
     pTag.textContent = " ";
@@ -155,9 +151,8 @@ function viewScore () {
     titleElement.setAttribute("style", "background-color: white;");
 
     //creates a name
-    //**needs to get name value correct */
     var nameBoard = document.createElement("p");
-    nameBoard.textContent = "Winner Winner Chicken Dinner - 23 points";
+    nameBoard.textContent =  userName.concat(" - ", points);
     nameBoard.setAttribute("style", "padding: 10px 10px; margin: 10px auto; background-color: #d6cefb; color: black; border: none; text-align: left")
     titleElement.appendChild(nameBoard);
 
@@ -174,7 +169,7 @@ function viewScore () {
     //appends and styles both buttons
     innerSection.appendChild(backButton);
     innerSection.appendChild(clearScore);
-    innerSection.setAttribute("style", "border: solid 1px black; display: flex; flex-direction: row; width: 50%; margin: 0px auto")
+    innerSection.setAttribute("style", "display: flex; flex-direction: row; width: 50%; margin: 20px auto")
     //**how do you reset back to original state when go back or clear is clicked?
     
 }
