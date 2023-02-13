@@ -40,8 +40,6 @@ p {
     background-color: white;
 }
 
-/* how do I make the container smaller so the width is smaller? */
-
 .container {
     width: 80%;
     margin: auto;
@@ -51,7 +49,6 @@ p {
     background-color: white;
     display: flex;
     flex-direction: column;
-    /* justify-content: center; */
 }
 
 .inner {
@@ -61,7 +58,7 @@ p {
 }
 
 button {
-    width: 10%;
+    width: 30%;
     padding: 20px;
     margin: 20px auto; 
     background-color: #9F2B68; 

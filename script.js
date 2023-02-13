@@ -28,7 +28,7 @@ questions.setAttribute("style", "display:none;");
 var secondsLeft = 5;
 
 function setTime() {
-    question();
+    startQuiz();
     // Sets interval in variable
 
     var timerInterval = setInterval(function() {
@@ -44,44 +44,28 @@ function setTime() {
     }, 1000);
 }
 
-function question() {
+let questionBank = {
+    prompt: "1) How do you write 'hello world?'",
+    choices: ['console.log("Hello World")' , 
+    'print "hello world!"', 
+    '"hello world!"'],
+    answer: 'console.log("Hello World")',
+
+};
+
+function startQuiz() {
     pTag.textContent = " ";
     start.setAttribute("style", "display:none;");
 
     titleElement.textContent = "1) How do you write 'Hello World'?";
     titleElement.setAttribute("style", "background-color: white");
+    
+    for (var i = 0; i<questionBank.choices.length; i++) {
+        questions.children[i].textContent = questionBank.choices[i];
+        questions.setAttribute("style", "display:block; background-color: white;");
+    };
 
-    //** is there a more efficient way to store questions / answers and iterate through them? */ 
-    var firstQuestionArray = [
-        "console.log('Hello World')",
-        "print('Hello World')",
-        'hello world!'
-    ]
-
-    var li1 = document.createElement("li");
-    var li2 = document.createElement("li");
-    var li3 = document.createElement("li");
-
-    li1.textContent = "console.log('Hello World')";
-    li2.textContent = "print('Hello World')";
-    li3.textContent = "hello world!";
-
-    listElement.append(li1);
-    listElement.append(li2);
-    listElement.append(li3);
-    listElement.setAttribute("style", "background-color: white");
-
-    innerSection.appendChild(listElement);
-
-    li1.addEventListener("click", correct);
-
-    // {
-//     title: 'Commonly used data types DO NOT include:',
-//     choices: ['strings', 'booleans', 'alerts', 'numbers'],
-//     answer: 'alerts',
-//   }
-
-    //use for loop to create li options and add event listener
+    
 
     // for loop here
     //  - insert text
@@ -90,16 +74,19 @@ function question() {
     //  - event listener - if statement within the event listener
 }
 
-function correct(event) {
+function points() {
+    
     points += 10;
     console.log(event.target);
     var correctText = document.createElement("h2");
     correctText.textContent = "Correct!";
     innerSection.appendChild(correctText);
-}
+};
 
 function sendMessage() {
     innerSection.textContent = " ";
+    questions.setAttribute("style", "display:none;");
+
     titleElement.textContent = "All done!";
 
     //creates "final score is" text
@@ -138,7 +125,7 @@ function sendMessage() {
 
 function viewScore () {
     var userName = document.getElementById("name").value;
-    
+
     // clears the screen
     pTag.textContent = " ";
     innerSection.textContent = " ";
