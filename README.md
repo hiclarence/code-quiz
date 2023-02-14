@@ -23,10 +23,10 @@ THEN I can save my initials and score
 - print "hello world!"
 - "hello world!"
 
-2) Which HTML do we put the Javascript?
+2) Which script do we put in the HTML to reference Javascript?
 - scripting
 - js
-- script
+- script.js
 - javascript
 
 3) What is the correct place to put javascript

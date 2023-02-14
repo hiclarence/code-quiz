@@ -9,6 +9,11 @@ var innerSection = document.querySelector(".inner");
 var pTag = document.querySelector("p");
 var titleElement = document.querySelector(".welcome");
 
+// creates the form input
+var formInput = document.createElement("input");
+formInput.setAttribute("style", "height: 30px")
+formInput.id = "name";
+
 //targeting start quiz button. 
 var start = document.querySelector("#start");
 start.addEventListener("click", setTime);
@@ -25,7 +30,7 @@ var points = 0;
 questions.setAttribute("style", "display:none;");
 
 //setting how many seconds to run
-var secondsLeft = 5;
+var secondsLeft = 15;
 
 function setTime() {
     startQuiz();
@@ -35,7 +40,7 @@ function setTime() {
         secondsLeft--;
         timeElement.textContent = "Time: " + secondsLeft;
   
-        if(secondsLeft === 0) {
+        if(secondsLeft <= 0) {
         // Stops execution of action at set interval
             clearInterval(timerInterval);
         // Calls function to send message
@@ -44,38 +49,66 @@ function setTime() {
     }, 1000);
 }
 
-let questionBank = {
+let firstQuestion = {
     prompt: "1) How do you write 'hello world?'",
     choices: ['console.log("Hello World")' , 
     'print "hello world!"', 
     '"hello world!"'],
     answer: 'console.log("Hello World")',
-
 };
+
+
+let secondQuestion = {
+    prompt: "'Which script do we put in the HTML to reference Javascript?'",
+    choices: ["'scripting'" , 
+    'js"', 
+    '"script.js"'],
+    answer: 'script.js',
+};
+
+let thirdQuestion = {
+    prompt: "'What is the correct place to put javascript'",
+    choices: ["'the body section'" , 
+    '"the head section"', 
+    '"both are valid"'],
+    answer: 'both are valid',
+};
+
+let questionBank = {
+   questionOne : firstQuestion,
+   questionTwo : secondQuestion,
+   questionThree : ThirdQuestion
+}; 
 
 function startQuiz() {
     pTag.textContent = " ";
     start.setAttribute("style", "display:none;");
 
-    titleElement.textContent = "1) How do you write 'Hello World'?";
     titleElement.setAttribute("style", "background-color: white");
     
-    for (var i = 0; i<questionBank.choices.length; i++) {
-        questions.children[i].textContent = questionBank.choices[i];
+    for (var i = 0; i<firstQuestion.choices.length; i++) {
+        // let choice = questions.children[i].textContent;
+        // console.log(choice);
+        titleElement.textContent = firstQuestion.prompt;    
+        questions.children[i].textContent = firstQuestion.choices[i];
         questions.setAttribute("style", "display:block; background-color: white;");
+        let choiceSelection = questions.children[i].textContent;
+        var responseText = document.createElement("h2");
+        questions.children[i].addEventListener("click", function() {
+            if (choiceSelection === firstQuestion.answer) {
+                points += 10;
+                responseText.textContent = "Correct!";
+                innerSection.appendChild(responseText);
+            } else {
+                secondsLeft -= 3;
+                responseText.textContent = "Wrong";
+                innerSection.appendChild(responseText);
+        }});
     };
 
-    
-
-    // for loop here
-    //  - insert text
-    //  - append container
-    //  - stylize
-    //  - event listener - if statement within the event listener
-}
+};
 
 function points() {
-    
     points += 10;
     console.log(event.target);
     var correctText = document.createElement("h2");
@@ -107,10 +140,7 @@ function sendMessage() {
     aForm.appendChild(aLabel);
 
     //creating the input
-    var aInput = document.createElement("input");
-    aInput.setAttribute("style", "height: 30px")
-    aInput.id = "name";
-    aForm.appendChild(aInput);
+    aForm.appendChild(formInput);
 
     //creates the submit button
     var aSubmit = document.createElement("button");
@@ -123,7 +153,7 @@ function sendMessage() {
     
 }
 
-function viewScore () {
+function viewScore() {
     var userName = document.getElementById("name").value;
 
     // clears the screen
