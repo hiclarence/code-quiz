@@ -1,5 +1,19 @@
 # code-quiz
 
+## Descrtipton
+
+The purpose of this class homework was to create a timed code quiz that presents the user with several questions. Users will earn points for each qusetion answered correctly and time will be docked for any wrong answers. Users will be able to view and input their high score at the very end. 
+
+Concepts covered during this class were: 
+- manipulating the DOM using Vanilla Javascript. 
+- using local storage to set and get the high score along with user initials
+
+![Picture](img.png)
+
+![Link](https://hiclarence.github.io/code-quiz)
+
+
+
 GIVEN I am taking a code quiz
 
 WHEN I click the start button
@@ -16,31 +30,3 @@ THEN the game is over
 
 WHEN the game is over
 THEN I can save my initials and score
-
-
-1) How do you write "hello world?"
-- console.log("Hello World")
-- print "hello world!"
-- "hello world!"
-
-2) Which script do we put in the HTML to reference Javascript?
-- scripting
-- js
-- script.js
-- javascript
-
-3) What is the correct place to put javascript
-- the body section
-- the head section
-- All of the above
-
-4) How to write an IF statement in JavaScript?
-- if i =5 , then 
-- if (i==5) {}
-- if (i=5) then
-- if i ==5 , then 
-
-How does a WHILE loop start?
-- while i=1 to 10
-- while (i<=10)
-- while (i<=10, i++)

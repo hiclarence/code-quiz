@@ -2,17 +2,15 @@
 var timeElement = document.querySelector(".time");
 var score = document.querySelector(".score");
 
+//creates an array for high scores
+const highScoreArray = JSON.parse(localStorage.getItem("highScores")) || [];
+
 //identifies html structure including title
 var container = document.querySelector(".container");
 var questions = document.querySelector(".questions");
 var innerSection = document.querySelector(".inner");
 var pTag = document.querySelector("p");
 var titleElement = document.querySelector(".welcome");
-
-// creates the form input
-var formInput = document.createElement("input");
-formInput.setAttribute("style", "height: 30px")
-formInput.id = "name";
 
 //targeting start quiz button. 
 var start = document.querySelector("#start");
@@ -50,9 +48,9 @@ function setTime() {
 }
 
 let firstQuestion = {
-    prompt: "1) How do you write 'hello world?'",
+    prompt: "How do you write 'hello world?",
     choices: ['console.log("Hello World")' , 
-    'print "hello world!"', 
+    'print "hello world!', 
     '"hello world!"'],
     answer: 'console.log("Hello World")',
 };
@@ -60,24 +58,24 @@ let firstQuestion = {
 
 let secondQuestion = {
     prompt: "'Which script do we put in the HTML to reference Javascript?'",
-    choices: ["'scripting'" , 
-    'js"', 
-    '"script.js"'],
+    choices: ["scripting" , 
+    'js', 
+    'script.js'],
     answer: 'script.js',
 };
 
 let thirdQuestion = {
-    prompt: "'What is the correct place to put javascript'",
-    choices: ["'the body section'" , 
-    '"the head section"', 
-    '"both are valid"'],
+    prompt: "'What is the correct place to put javascript?'",
+    choices: ["the body section" , 
+    'the head section', 
+    'both are valid'],
     answer: 'both are valid',
 };
 
 let questionBank = {
    questionOne : firstQuestion,
    questionTwo : secondQuestion,
-   questionThree : ThirdQuestion
+   questionThree : thirdQuestion
 }; 
 
 function startQuiz() {
@@ -85,13 +83,62 @@ function startQuiz() {
     start.setAttribute("style", "display:none;");
 
     titleElement.setAttribute("style", "background-color: white");
+    //value returns all the questions 
+    // let value = Object.values(questionBank);
+
+    // for (var i = 0; i<3; i++) {
+    //     //value[i] = the question
+    //     console.log(value[i].prompt);
+    //     titleElement.textContent = value[i].prompt;    
+        
+    //     //setting the li elements to the answer choices possible
+    //     questions.children[i].textContent = value[0].choices[i];
+    //     // console.log(value[i].choices[i]); 
+    //     questions.setAttribute("style", "display:block; background-color: white;");
+    //     let choiceSelection = questions.children[i].textContent;
+    //     var responseText = document.createElement("h2");
     
-    for (var i = 0; i<firstQuestion.choices.length; i++) {
-        // let choice = questions.children[i].textContent;
-        // console.log(choice);
-        titleElement.textContent = firstQuestion.prompt;    
+    //     questions.children[i].addEventListener("click", function() {
+    //         if (choiceSelection === value[0].answer) {
+    //             points += 10;
+    //             responseText.textContent = "Correct!";
+    //             innerSection.appendChild(responseText);
+    //         } else {
+    //             secondsLeft -= 3;
+    //             responseText.textContent = "Wrong";
+    //             innerSection.appendChild(responseText);
+    //     }});
+        
+    // }
+
+
+    
+    // for (const question in questionBank) {
+    //     for (var i = 0; i<3; i++) {
+    //         console.log(value[0].prompt);
+    //         titleElement.textContent = value[0].prompt;    
+    //         questions.children[i].textContent = value[0].choices[i];
+    //         console.log(value[0].choices[i]);
+    //         questions.setAttribute("style", "display:block; background-color: white;");
+
+    //     }
+    //     for (var i = 0; i<3; i++) {
+    //         let val = questionBank[keys[i]]; 
+    //         console.log(val);
+    //         titleElement.textContent = question.value.prompt;    
+    //     }
+    // }
+    
+    questions.setAttribute("style", "display:block; background-color: white;");
+
+    //first question
+    for (var i = 0; i<3; i++) {
+        console.log("first question hit!")
+        
+        //sets the title and questions
+        titleElement.textContent = firstQuestion.prompt;        
         questions.children[i].textContent = firstQuestion.choices[i];
-        questions.setAttribute("style", "display:block; background-color: white;");
+        
         let choiceSelection = questions.children[i].textContent;
         var responseText = document.createElement("h2");
         questions.children[i].addEventListener("click", function() {
@@ -106,7 +153,48 @@ function startQuiz() {
         }});
     };
 
+    // titleElement.textContent = " ";
+    // questions.children.textContent = " "; 
+
+    //second question
+    // for (var i = 0; i<3; i++) {
+    //     titleElement.textContent = secondQuestion.prompt;        
+    //     questions.children[i].textContent = secondQuestion.choices[i];
+    //     let choiceSelection = questions.children[i].textContent;
+    //     var responseText = document.createElement("h2");
+    //     questions.children[i].addEventListener("click", function() {
+    //         if (choiceSelection === secondQuestion.answer) {
+    //             points += 10;
+    //             responseText.textContent = "Correct!";
+    //             innerSection.appendChild(responseText);
+    //         } else {
+    //             secondsLeft -= 3;
+    //             responseText.textContent = "Wrong";
+    //             innerSection.appendChild(responseText);
+    //     }});
+    // };
+
 };
+
+function secondQuestionTry() {
+    console.log("second question")
+    for (var i = 0; i<3; i++) {
+        titleElement.textContent = secondQuestion.prompt;        
+        questions.children[i].textContent = secondQuestion.choices[i];
+        let choiceSelection = questions.children[i].textContent;
+        var responseText = document.createElement("h2");
+        questions.children[i].addEventListener("click", function() {
+            if (choiceSelection === secondQuestion.answer) {
+                points += 10;
+                responseText.textContent = "Correct!";
+                innerSection.appendChild(responseText);
+            } else {
+                secondsLeft -= 3;
+                responseText.textContent = "Wrong";
+                innerSection.appendChild(responseText);
+        }});
+    };
+}
 
 function points() {
     points += 10;
@@ -140,6 +228,9 @@ function sendMessage() {
     aForm.appendChild(aLabel);
 
     //creating the input
+    var formInput = document.createElement("input");
+    formInput.setAttribute("style", "height: 30px")
+    formInput.id = "name";
     aForm.appendChild(formInput);
 
     //creates the submit button
@@ -172,6 +263,14 @@ function viewScore() {
     nameBoard.textContent =  userName.concat(" - ", points);
     nameBoard.setAttribute("style", "padding: 10px 10px; margin: 10px auto; background-color: #d6cefb; color: black; border: none; text-align: left")
     titleElement.appendChild(nameBoard);
+
+    //inputs name and points into local storage    
+    let user = {
+        name : userName,
+        points : points
+    }
+
+    localStorage.setItem("user", JSON.stringify(user));
 
     //creates go back button
     var backButton = document.createElement("button");
