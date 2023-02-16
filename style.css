@@ -75,6 +75,11 @@ button {
     cursor: pointer
 }
 
+.response h2{
+    background-color: white;
+    text-align: center;
+}
+
 .questions li:hover {
     background-color: #651a42; 
 }
