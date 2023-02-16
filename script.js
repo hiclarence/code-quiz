@@ -167,17 +167,6 @@ function secondQuestionAttempt() {
 
 }
 
-
-
-
-function points() {
-    points += 10;
-    console.log(event.target);
-    var correctText = document.createElement("h2");
-    correctText.textContent = "Correct!";
-    innerSection.appendChild(correctText);
-};
-
 function sendMessage() {
     innerSection.textContent = " ";
     questions.setAttribute("style", "display:none;");
@@ -211,11 +200,25 @@ function sendMessage() {
     var aSubmit = document.createElement("button");
     aSubmit.textContent = "Submit";
     aForm.appendChild(aSubmit);
-    aSubmit.setAttribute("style", "padding: 10px; margin: 20px; background-color: #9F2B68; width: 80%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
+    aSubmit.setAttribute("style", "padding: 10px; margin: 20px; width: 80%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
 
     //clicking the submit button redirects to the view score
-    aSubmit.addEventListener("click", viewScore);
+    aSubmit.addEventListener("click", addScore);
+
+}
+
+function addScore() {
+
+    //inputs name and points into local storage for a new entry
+    var userName = document.getElementById("name").value;
+    userEntry = {
+        name : userName,
+        points : points
+    };
     
+    highScoreArray.push(userEntry);
+    localStorage.setItem("highScores", JSON.stringify(highScoreArray));
+    viewScore();
 }
 
 function viewScore() {
@@ -237,30 +240,12 @@ function viewScore() {
     nameBoard.setAttribute("style", "background-color: white;")
 
 
-    //creates and adds the new entry for the name board
-    // var entry = document.createElement("p");
-    // entry.textContent =  userName.concat(" - ", points);
-    // nameBoard.appendChild(entry);
-
-    //inputs name and points into local storage for a new entry
-    // var userName = document.getElementById("name").value;
-    // userEntry = {
-    //     name : userName,
-    //     points : points
-    // };
-    
-    // highScoreArray.push(userEntry);
-    // localStorage.setItem("highScores", JSON.stringify(highScoreArray));
-
-
-
-    //imports from local storage
     if (highScoreArray.length != 0) {
         for (var i=0 ; i<highScoreArray.length; i++) {
             var entry = document.createElement("p");
-            var name = JSON.stringify(highScoreArray[i].name);
-            var score = JSON.stringify(highScoreArray[i].points);
-            entry.textContent =  name.concat(" - ", score );
+            var name = highScoreArray[i].name;
+            var score = highScoreArray[i].points;
+            entry.textContent =  name.concat(" - ", score, " points" );
             entry.setAttribute("style", "padding: 10px 10px; margin: 10px auto; background-color: #d6cefb; color: black; border: none; text-align: left")
             nameBoard.appendChild(entry);
                       
@@ -270,14 +255,15 @@ function viewScore() {
     //creates go back button
     var backButton = document.createElement("button");
     backButton.textContent = "Go Back";
-    backButton.setAttribute("style", "padding: 10px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
+    backButton.setAttribute("style", "padding: 10px; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
     backButton.addEventListener("click", function() { window.location.reload();});  
 
     //creates clear score button
     var clearScore = document.createElement("button");
     clearScore.textContent = "Clear Score";
-    clearScore.setAttribute("style", "padding: 10px; background-color: #9F2B68; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
+    clearScore.setAttribute("style", "padding: 10px; width: 20%; color: white; margin: 5px auto; border-radius: 5px; font-family: Arial; font-size: 16px; cursor: pointer; border: none");
     clearScore.addEventListener("click", function() {
+        nameBoard.textContent = " ";
         localStorage.clear()
     });
 
@@ -285,8 +271,5 @@ function viewScore() {
     innerSection.appendChild(backButton);
     innerSection.appendChild(clearScore);
     innerSection.setAttribute("style", "display: flex; flex-direction: row; width: 50%; margin: 20px auto")
-    //**how do you reset back to original state when go back or clear is clicked?
-    
-
     
 }

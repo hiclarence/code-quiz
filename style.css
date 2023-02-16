@@ -1,6 +1,6 @@
 
 * {
-    background-color: #fafafa;
+    background-color: #F9F0F5;
 }
 
 nav ul {
@@ -45,10 +45,14 @@ p {
     margin: auto;
     border: 1px solid gray;
     border-radius: 5px;
-    box-shadow: 8px 5px #c9c9c9;
+    box-shadow: 8px 5px #9d3e70;
     background-color: white;
     display: flex;
     flex-direction: column;
+}
+
+div {
+    background-color: white;
 }
 
 .inner {
@@ -61,11 +65,11 @@ button {
     width: 30%;
     padding: 20px;
     margin: 20px auto; 
-    background-color: #9F2B68; 
+    background-color: #253D5B; 
 }
 
 .container li {
-    background-color: #9F2B68; 
+    background-color: #253D5B; 
     padding: 20px; 
     width: 20%; 
     color: white; 
