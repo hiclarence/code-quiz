@@ -10,4 +10,4 @@ Concepts covered during this class were:
 
 ![Picture](img.png)
 
-![Link](https://hiclarence.github.io/code-quiz)
+![Link](https://hiclarence.github.io/code-quiz/)
