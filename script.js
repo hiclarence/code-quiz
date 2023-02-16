@@ -57,20 +57,16 @@ let thirdQuestion = {
     answer: 'both are valid',
 };
 
-let questionBank = {
-   questionOne : firstQuestion,
-   questionTwo : secondQuestion,
-   questionThree : thirdQuestion
-}; 
+let questionBank = [firstQuestion, secondQuestion, thirdQuestion]
+let questionCount = 0;
 
 questions.setAttribute("style", "display:none;");
 
 //setting how many seconds to run
-var secondsLeft = 10;
+var secondsLeft = 30;
 
 function setTime() {
-    startQuiz();
-    secondQuestionAttempt;
+    loadQuestion();
     // Sets interval in variable
 
     var timerInterval = setInterval(function() {
@@ -86,8 +82,29 @@ function setTime() {
     }, 1000);
 }
 
+function validateAnswer(event) {
+    var responseText = document.createElement("h2");
+    response.textContent = " ";
+    if (questionBank[questionCount].answer == event.target.textContent) {
+        points += 10;
+        responseText.textContent = "Correct!";
+        questionCount += 1;
+        if (questionCount == 3) {
+            secondsLeft = 0;
+            sendMessage();
+        } else {
+            loadQuestion();
+        }
+    } else {
+        secondsLeft -= 3;
+        console.log("wrong hit")
+        responseText.textContent = "Wrong!";
+    }
+    response.appendChild(responseText);
+}
 
-function startQuiz() {
+
+function loadQuestion() {
     innerSection.textContent = " ";
     pTag.textContent = " ";
     start.setAttribute("style", "display:none;");
@@ -95,77 +112,15 @@ function startQuiz() {
     questions.setAttribute("style", "display:block; background-color: white;");
     
     //sets the title and questions
-    titleElement.textContent = firstQuestion.prompt;
-    var responseText = document.createElement("h2");
-
-    //first question
-    for (var i = 0; i<3; i++) {
-        questions.children[i].textContent = firstQuestion.choices[i];
-    //     let choiceSelection = questions.children[i].textContent;
-    //     questions.children[i].addEventListener("click", function() {
-    //         if (choiceSelection === firstQuestion.answer) {
-    //             points += 10;
-    //             responseText.textContent = "Correct!";
-    //         } else {
-    //             secondsLeft -= 3;
-    //             responseText.textContent = "Wrong...";
-    //             console.log("wrong text printed")
-    //             }; 
-    // }); 
-};
-
-    questions.children[1].addEventListener("click", function() {
-        secondsLeft -= 3; 
-        responseText.textContent = "Wrong1";
-        response.appendChild(responseText);
-    }); 
-
-    questions.children[2].addEventListener("click", function() {
-        secondsLeft -= 3; 
-        responseText.textContent = "Wrong2";
-        response.appendChild(responseText);
-    });
-
-    questions.children[0].addEventListener("click", function() {
-        points += 10; 
-        responseText.textContent = "Correct...";
-        response.appendChild(responseText);
-        secondQuestionAttempt();
-    });
-
-    console.log("end of button")
-};
-
-function secondQuestionAttempt() {
-    console.log("second question hit")
-    pTag.textContent = " ";
-    // response.textContent = " ";
-    titleElement.textContent = " ";
-
-    titleElement.textContent = secondQuestion.prompt;      
-    var responseText = document.createElement("h2");
+    titleElement.textContent = questionBank[questionCount].prompt;
 
     for (var i = 0; i<3; i++) {
-        questions.children[i].textContent = secondQuestion.choices[i];
-    };
+        questions.children[i].textContent = questionBank[questionCount].choices[i];
+        questions.children[i].addEventListener("click", validateAnswer);
+    }
 
-    questions.children[1].addEventListener("click", function() {
-        secondsLeft -= 3; 
-        responseText.textContent = "Wrong3";
-    }); 
+};
 
-    questions.children[2].addEventListener("click", function() {
-        points += 10; 
-        responseText.textContent = "Correct2";
-    });
-
-    questions.children[0].addEventListener("click", function() {
-        secondsLeft -= 3; 
-        responseText.textContent = "Wrong4";
-        secondQuestionAttempt();
-    });
-
-}
 
 function sendMessage() {
     innerSection.textContent = " ";
@@ -224,6 +179,8 @@ function addScore() {
 function viewScore() {
 
     // clears the screen
+    questions.textContent = " ";
+    response.textContent = " ";
     pTag.textContent = " ";
     innerSection.textContent = " ";
     start.setAttribute("style", "display:none;");
@@ -271,5 +228,5 @@ function viewScore() {
     innerSection.appendChild(backButton);
     innerSection.appendChild(clearScore);
     innerSection.setAttribute("style", "display: flex; flex-direction: row; width: 50%; margin: 20px auto")
-    
+
 }
